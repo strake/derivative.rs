@@ -18,7 +18,7 @@ pub fn derive(input: &ast::Input, default: &attr::InputDefault) -> quote::Tokens
                 for f in fields {
                     let name = f.ident.as_ref().expect("A structure field must have a name");
                     let default = f.attrs.default_value().map_or_else(
-                        || quote!(::std::default::Default::default()),
+                        || quote!(::core::default::Default::default()),
                         |v| quote!(#v),
                     );
 
@@ -32,7 +32,7 @@ pub fn derive(input: &ast::Input, default: &attr::InputDefault) -> quote::Tokens
 
                 for f in fields {
                     let default = f.attrs.default_value().map_or_else(
-                        || quote!(::std::default::Default::default()),
+                        || quote!(::core::default::Default::default()),
                         |v| quote!(#v),
                     );
 
@@ -109,7 +109,7 @@ pub fn derive(input: &ast::Input, default: &attr::InputDefault) -> quote::Tokens
     )
 }
 
-/// Return the path of the `Default` trait, that is `::std::default::Default`.
+/// Return the path of the `Default` trait, that is `::core::default::Default`.
 fn default_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "default", "Default"]).build()
+    aster::path().global().ids(&["core", "default", "Default"]).build()
 }

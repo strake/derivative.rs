@@ -15,7 +15,7 @@ macro_rules! define {
 }
 
 struct FakeHasher<'a>(&'a mut Vec<u8>);
-impl<'a> ::std::hash::Hasher for FakeHasher<'a> {
+impl<'a> ::core::hash::Hasher for FakeHasher<'a> {
     fn finish(&self) -> u64 {
         unimplemented!()
     }
@@ -25,7 +25,7 @@ impl<'a> ::std::hash::Hasher for FakeHasher<'a> {
     }
 }
 
-fn fake_hash<E: ::std::hash::Hash>(e: E) -> Vec<u8> {
+fn fake_hash<E: ::core::hash::Hash>(e: E) -> Vec<u8> {
     let mut v = Vec::new();
     e.hash(&mut FakeHasher(&mut v));
     v

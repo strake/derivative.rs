@@ -108,12 +108,12 @@ pub fn derive_partial_eq(input: &ast::Input) -> Result<quote::Tokens, String> {
     })
 }
 
-/// Return the path of the `Eq` trait, that is `::std::cmp::Eq`.
+/// Return the path of the `Eq` trait, that is `::core::cmp::Eq`.
 fn eq_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "cmp", "Eq"]).build()
+    aster::path().global().ids(&["core", "cmp", "Eq"]).build()
 }
 
-/// Return the path of the `PartialEq` trait, that is `::std::cmp::PartialEq`.
+/// Return the path of the `PartialEq` trait, that is `::core::cmp::PartialEq`.
 fn partial_eq_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "cmp", "PartialEq"]).build()
+    aster::path().global().ids(&["core", "cmp", "PartialEq"]).build()
 }

@@ -15,7 +15,7 @@ pub fn derive(input: &ast::Input) -> quote::Tokens {
 
                 if attrs.debug_transparent() {
                     return Some(quote!{
-                        ::std::fmt::Debug::fmt(__arg_0, __f)
+                        ::core::fmt::Debug::fmt(__arg_0, __f)
                     });
                 }
 
@@ -84,7 +84,7 @@ pub fn derive(input: &ast::Input) -> quote::Tokens {
     quote! {
         #[allow(unused_qualifications)]
         impl #impl_generics #debug_trait_path for #ty #where_clause {
-            fn fmt(&self, __f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+            fn fmt(&self, __f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
                 match *self {
                     #body
                 }
@@ -97,9 +97,9 @@ fn needs_debug_bound(attrs: &attr::Field) -> bool {
     !attrs.ignore_debug() && attrs.debug_bound().is_none()
 }
 
-/// Return the path of the `Debug` trait, that is `::std::fmt::Debug`.
+/// Return the path of the `Debug` trait, that is `::core::fmt::Debug`.
 fn debug_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "fmt", "Debug"]).build()
+    aster::path().global().ids(&["core", "fmt", "Debug"]).build()
 }
 
 fn format_with(
@@ -135,15 +135,15 @@ fn format_with(
 
     quote!(
         let #arg_n = {
-            struct Dummy #ty_generics (&'_derivative #ty, ::std::marker::PhantomData <(#(#phantom),*)>) #where_clause;
+            struct Dummy #ty_generics (&'_derivative #ty, ::core::marker::PhantomData <(#(#phantom),*)>) #where_clause;
 
             impl #impl_generics #debug_trait_path for Dummy #ty_generics #where_clause {
-                fn fmt(&self, __f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                fn fmt(&self, __f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
                     #format_fn(&self.0, __f)
                 }
             }
 
-            Dummy:: #ctor_ty_generics (#arg_n, ::std::marker::PhantomData)
+            Dummy:: #ctor_ty_generics (#arg_n, ::core::marker::PhantomData)
         };
     )
 }

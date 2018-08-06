@@ -80,12 +80,12 @@ fn needs_hash_bound(attrs: &attr::Field) -> bool {
     !attrs.ignore_hash() && attrs.hash_bound().is_none()
 }
 
-/// Return the path of the `Hash` trait, that is `::std::hash::Hash`.
+/// Return the path of the `Hash` trait, that is `::core::hash::Hash`.
 fn hash_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "hash", "Hash"]).build()
+    aster::path().global().ids(&["core", "hash", "Hash"]).build()
 }
 
-/// Return the path of the `Hasher` trait, that is `::std::hash::Hasher`.
+/// Return the path of the `Hasher` trait, that is `::core::hash::Hasher`.
 fn hasher_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "hash", "Hasher"]).build()
+    aster::path().global().ids(&["core", "hash", "Hasher"]).build()
 }

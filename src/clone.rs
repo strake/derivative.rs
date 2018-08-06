@@ -185,12 +185,12 @@ fn needs_clone_bound(attrs: &attr::Field) -> bool {
     attrs.clone_bound().is_none()
 }
 
-/// Return the path of the `Clone` trait, that is `::std::clone::Clone`.
+/// Return the path of the `Clone` trait, that is `::core::clone::Clone`.
 fn clone_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "clone", "Clone"]).build()
+    aster::path().global().ids(&["core", "clone", "Clone"]).build()
 }
 
-/// Return the path of the `Copy` trait, that is `::std::marker::Clone`.
+/// Return the path of the `Copy` trait, that is `::core::marker::Clone`.
 fn copy_trait_path() -> syn::Path {
-    aster::path().global().ids(&["std", "marker", "Copy"]).build()
+    aster::path().global().ids(&["core", "marker", "Copy"]).build()
 }
